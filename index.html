@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Princess</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: radial-gradient(circle, #fff0f3 0%, #ffdde1 100%);
+            font-family: 'Arial Rounded MT Bold', 'Helvetica', sans-serif;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        #container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2);
+            max-width: 450px;
+            width: 85%;
+        }
+
+        img {
+            width: 100%;
+            height: 250px;
+            object-fit: contain;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #ff4d6d;
+            font-size: 1.6rem;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        #yesBtn {
+            background-color: #2ecc71;
+            color: white;
+        }
+
+        #noBtn {
+            background-color: #ff4d6d;
+            color: white;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .final-text {
+            color: #c9184a;
+            font-size: 1.3rem;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <img id="mainGif" src="https://media.tenor.com/T_7H5I9_V70AAAAi/cute-begging.gif" alt="Praying">
+        <h1 id="mainText">Will you be my valentine?</h1>
+        
+        <div class="buttons" id="btnGroup">
+            <button id="yesBtn" onclick="accept()">Of Course</button>
+            <button id="noBtn" onclick="refuse()">No</button>
+        </div>
+    </div>
+
+    <script>
+        let stage = 0;
+        const mainText = document.getElementById('mainText');
+        const mainGif = document.getElementById('mainGif');
+        const noBtn = document.getElementById('noBtn');
+
+        // GIF sequence based on your request
+        const gifs = [
+            "https://media.tenor.com/T_7H5I9_V70AAAAi/cute-begging.gif", // Praying
+            "https://media.tenor.com/tH67S60V798AAAAi/cute-sad.gif",      // Head cutely / Pout
+            "https://media.tenor.com/u_5Y_Oq7fXoAAAAi/begging-crying.gif", // Crying/Holding Leg
+            "https://media.tenor.com/tOofmYAnX_cAAAAi/peach-goma.gif"     // Love Potion / Drink This
+        ];
+
+        const texts = [
+            "Will you be my valentine?",
+            "Pleaseeee be my valentine!",
+            "One last time... be my valentine?",
+            "You left me with no choice... drink this!"
+        ];
+
+        function refuse() {
+            stage++;
+            
+            if (stage < 3) {
+                mainText.innerText = texts[stage];
+                mainGif.src = gifs[stage];
+                
+                if(stage === 1) noBtn.innerText = "I said no";
+                
+                // Yes button grows to become more tempting
+                let yesBtn = document.getElementById('yesBtn');
+                let currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
+                yesBtn.style.fontSize = (currentSize * 1.2) + "px";
+                yesBtn.style.padding = (currentSize * 0.8) + "px " + (currentSize * 1.5) + "px";
+            } else {
+                // Love Potion Stage
+                mainText.innerText = texts[stage];
+                mainGif.src = gifs[3]; // The "Drink this" gif
+                noBtn.classList.add('hidden'); // No button vanishes
+            }
+        }
+
+        function accept() {
+            document.getElementById('container').innerHTML = `
+                <img src="https://media.tenor.com/8Yl_Wc5X_p8AAAAi/mochi-mochi-peach-cat-love.gif" alt="Love">
+                <h1 class="final-text">Yes my love, I’ll be your Valentine! ❤️</h1>
+                <p class="final-text">I cherish you so much my princess and star ✨</p>
+                <img src="https://media.tenor.com/0v3_S19v09UAAAAi/milk-and-mocha-hug.gif" style="height:150px; margin-top:10px;">
+            `;
+            document.body.style.background = "#ffb3c1"; // Change background to deeper pink
+        }
+    </script>
+</body>
+</html>

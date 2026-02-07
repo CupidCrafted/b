@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be My Valentine</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
+        color: #333;
+        overflow: hidden;
+    }
+    .container {
+        max-width: 400px;
+        width: 90%;
+        padding: 20px;
+    }
+    h1 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        transition: opacity 0.5s;
+    }
+    img {
+        max-width: 100%;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        transition: opacity 0.5s;
+    }
+    .buttons {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 25px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+    button:hover {
+        transform: scale(1.1);
+    }
+    .green {
+        background-color: #4CAF50;
+        color: white;
+    }
+    .red {
+        background-color: #f44336;
+        color: white;
+    }
+    .fade {
+        opacity: 0;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1 id="text">Will you be my valentine</h1>
+    <img id="gif" src="https://media.giphy.com/media/l0HlBO7eyXzSZkJri/giphy.gif" alt="Valentine GIF">
+    <div class="buttons" id="buttons">
+        <button class="green" id="yes">Of course</button>
+        <button class="red" id="no">No</button>
+    </div>
+</div>
+
+<script>
+const textEl = document.getElementById('text');
+const gifEl = document.getElementById('gif');
+const yesBtn = document.getElementById('yes');
+const noBtn = document.getElementById('no');
+const buttonsDiv = document.getElementById('buttons');
+
+let state = 1;
+
+const gifs = {
+    1: "https://media.giphy.com/media/l0HlBO7eyXzSZkJri/giphy.gif", // kneeling
+    2: "https://media.giphy.com/media/3o6Zt481isNVuQI1l6/giphy.gif", // walking away
+    3: "https://media.giphy.com/media/26ufcVAp3AiJJsrIs/giphy.gif", // begging
+    4: "https://media.giphy.com/media/3o7aD2saalBwwftBIY/giphy.gif", // love potion
+    5: ["https://media.giphy.com/media/l2QDM9Jnim1YVILXa/giphy.gif",
+        "https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif"] // final love
+};
+
+function fadeChange(text, gifSrc, yesText = null, noText = null, hideNo = false, finalGifs = false) {
+    textEl.classList.add('fade');
+    gifEl.classList.add('fade');
+
+    setTimeout(() => {
+        textEl.textContent = text;
+        if(finalGifs) {
+            // display two GIFs side by side
+            gifEl.style.display = 'none';
+            if(!document.getElementById('finalGifs')) {
+                const div = document.createElement('div');
+                div.id = 'finalGifs';
+                div.style.display = 'flex';
+                div.style.justifyContent = 'center';
+                div.style.gap = '10px';
+                const img1 = document.createElement('img');
+                img1.src = finalGifs[0];
+                img1.style.maxWidth = '45%';
+                const img2 = document.createElement('img');
+                img2.src = finalGifs[1];
+                img2.style.maxWidth = '45%';
+                div.appendChild(img1);
+                div.appendChild(img2);
+                document.querySelector('.container').appendChild(div);
+            }
+        } else {
+            gifEl.src = gifSrc;
+            gifEl.style.display = 'block';
+        }
+
+        textEl.classList.remove('fade');
+        gifEl.classList.remove('fade');
+
+        if(yesText) yesBtn.textContent = yesText;
+        if(noText) noBtn.textContent = noText;
+        if(hideNo) noBtn.style.display = 'none';
+    }, 500);
+}
+
+// Yes button click
+yesBtn.addEventListener('click', () => {
+    if(state === 1) {
+        // first yes, nothing special
+        state = 1; // stay
+    } else if(state === 4) {
+        // final yes
+        fadeChange(
+            "I cherish you so much my princess and star ✨",
+            null,
+            null,
+            null,
+            true,
+            gifs[5]
+        );
+    }
+});
+
+// No button click
+noBtn.addEventListener('click', () => {
+    if(state === 1) {
+        fadeChange("Please be my valentine", gifs[2], null, "I said no");
+        state = 2;
+    } else if(state === 2) {
+        fadeChange("Please dont do this", gifs[3], null, "Still no");
+        state = 3;
+    } else if(state === 3) {
+        fadeChange("You left me with no choice.", gifs[4], "Yes I’ll be your valentine", null, true);
+        state = 4;
+    }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Will You? 💜</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f8f0f6;
+        font-family: 'Lato', sans-serif;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    #card {
+        background: white;
+        padding: 40px 25px;
+        border-radius: 30px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        width: 85%;
+        max-width: 380px;
+        transition: all 0.3s ease;
+        border: 1px solid #eee;
+    }
+
+    h1 { 
+        font-family: 'Playfair Display', serif;
+        color: #4a1a4a; 
+        font-size: 1.6rem; 
+        min-height: 100px; 
+        line-height: 1.3;
+        margin-bottom: 20px;
+    }
+
+    .buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    button {
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        font-family: 'Lato', sans-serif;
+        font-weight: 700;
+        transition: all 0.2s ease;
+        letter-spacing: 0.5px;
+    }
+
+    #yesBtn {
+        background-color: #28a745;
+        color: white;
+        padding: 16px 45px;
+        font-size: 1.1rem;
+        box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+    }
+
+    #noBtn {
+        background-color: #dc3545;
+        color: white;
+        padding: 10px 25px;
+        font-size: 0.9rem;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+        100% { transform: scale(1); }
+    }
+
+    .heart {
+        display: inline-block;
+        color: red;
+        animation: pulse 1s infinite ease-in-out;
+    }
+
+    img.gif {
+        width: 100%;
+        height: auto;          /* keeps GIF aspect ratio */
+        max-height: 300px;     /* increase if needed */
+        border-radius: 20px;
+        margin-bottom: 15px;
+        animation: fadeIn 0.5s ease-out;
+        object-fit: contain;    /* ensures no cropping */
+    }
+</style>
+</head>
+<body>
+
+<div id="card">
+    <img id="gif" class="gif" src="https://i.postimg.cc/MGwpdyTv/IMG-2289.gif" alt="Valentine GIF">
+    <h1 id="question">Will you be my Valentine? 🥺</h1>
+
+    <div class="buttons">
+        <button id="yesBtn" onclick="celebrate()">Of course</button>
+        <button id="noBtn" onclick="handleNo()">No</button>
+    </div>
+</div>
+
+<script>
+    var noCount = 0;
+
+    function handleNo() {
+        var questionText = document.getElementById('question');
+        var yesBtn = document.getElementById('yesBtn');
+        var noBtn = document.getElementById('noBtn');
+        var gif = document.getElementById('gif');
+
+        noCount++;
+
+        if (noCount === 1) {
+            noBtn.innerText = "I said no";
+            questionText.innerText = "Pleaseee be my Valentine";
+            gif.src = "https://i.postimg.cc/JhQ4gGD7/IMG-2291.gif"; // first No GIF
+        } else if (noCount === 2) {
+            questionText.innerText = "One last time — be my Valentine";
+            gif.src = "https://i.postimg.cc/W47bKhFF/IMG-2294.gif"; // second No GIF
+        } else if (noCount >= 3) {
+            noBtn.style.display = "none";
+            yesBtn.innerText = "Yes my love, I’ll be your Valentine";
+            questionText.innerText = "You left me no choice";
+            gif.src = "https://i.postimg.cc/CK4LtzBd/IMG-2295.gif"; // final GIF before Yes
+        }
+    }
+
+    function celebrate() {
+        document.body.innerHTML = `
+            <div style="text-align:center; padding: 20px; animation: fadeIn 1s ease-out;">
+                <h1 class="heart" style="font-family:'Playfair Display', serif; font-size:3rem;">❤️</h1>
+                <img class="gif" src="https://i.postimg.cc/8CbP3jJj/IMG-2297.gif" alt="Celebration GIF">
+                <p style="font-family:'Lato', sans-serif; font-size:1.3rem; color:#666; margin-top:20px;">
+                    I cherish you so much my princess and star ❤️
+                </p>
+            </div>
+        `;
+    }
+</script>
+
+</body>
+</html>

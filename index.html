@@ -102,7 +102,7 @@
 
 <div id="card">
     <img id="gif" class="gif" src="https://i.postimg.cc/MGwpdyTv/IMG-2289.gif" alt="Valentine GIF">
-    <h1 id="question">Will you be my Valentine? 🥺</h1>
+    <h1 id="question">Vanessa will you be my girlfriend? 🥺</h1>
 
     <div class="buttons">
         <button id="yesBtn" onclick="celebrate()">Of course</button>
@@ -123,14 +123,14 @@
 
         if (noCount === 1) {
             noBtn.innerText = "I said no";
-            questionText.innerText = "Pleaseee be my Valentine";
+            questionText.innerText = "Pleaseee be mine";
             gif.src = "https://i.postimg.cc/JhQ4gGD7/IMG-2291.gif"; // first No GIF
         } else if (noCount === 2) {
-            questionText.innerText = "One last time — be my Valentine?🥹";
+            questionText.innerText = "One last time — be my girl?🥹";
             gif.src = "https://i.postimg.cc/W47bKhFF/IMG-2294.gif"; // second No GIF
         } else if (noCount >= 3) {
             noBtn.style.display = "none";
-            yesBtn.innerText = "Yes my love, I’ll be your Valentine";
+            yesBtn.innerText = "Yes my love, I’ll be your girlfriend";
             questionText.innerText = "You left me no choice";
             gif.src = "https://i.postimg.cc/CK4LtzBd/IMG-2295.gif"; // final GIF before Yes
         }
